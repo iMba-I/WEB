@@ -1,14 +1,43 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/db.php';
 
-    function showlistel ($db,$numt){
+// сохраняем результаты фильтра
+$cost='';
+if (isset($_GET['cost']))
+{
+    $cost = $_GET['cost'];
+}
+$title = '';
+if (isset($_GET['title']))
+{
+    $title = $_GET['title'];
+}
+$desc = '';
+if (isset($_GET['description']))
+{
+    $desc = $_GET['description'];
+}
+$name = '';
+if (isset($_GET['name']))
+{
+    $name = $_GET['name'];
+}
+// очищаем поля, если нажали очистить фильтр
+if (key_exists('clearFilter', $_GET))
+{
+    $desc = '';
+    $name = '';
+    $title = '';
+    $cost='';
+}
+    function showlistel ($db,$numt){ // Добавляем элементы выпадающего списка
         $que = "SELECT * FROM workers
                 ORDER BY id";
         $res = mysqli_query($db,$que);
 
         echo '<option value="">Сотрудник</option>';
 
-        while ($rows = mysqli_fetch_assoc($res))
+        while ($rows = $res->fetch_assoc())
         {
             if ($numt === $rows['id'])
             {
@@ -20,16 +49,17 @@
 
     }
 
-    function filtration($GET,$db,&$cost,&$title,&$desc,&$name)
+    function filtration($GET,$db) //  формируем запрос, возвращаем его результат, на вход получаем pdo экземпляр и метод $_get
     {
         $query = "SELECT img_path,name,description,cost,title FROM services
                                     inner join workers on services.id_worker=workers.id ";
         $arBinds = [];
-        if (!key_exists('clearFilter', $GET))
-        {
+        $stmt='';
 
-            if (count($GET) > 0)
-            {
+
+
+        if (key_exists('Filter', $GET) and ($GET['cost']!='' or $GET['title']!='' or $GET['description']!='' or $GET['name']!=''))
+        {
                 $query.="WHERE ";
 
                 if ($GET['cost']!="")
@@ -46,55 +76,40 @@
 
                 if ($GET['description']!="")
                 {
-                    $query .= "description LIKE :description AND ";
+                    $query .= "description RLIKE :description AND ";
                     $arBinds['description'] = htmlspecialchars($GET['description']);
                 }
 
                 if ($GET['name']!="")
                 {
-                    $query .= "name LIKE :name AND ";
+                    $query .= "name RLIKE :name AND ";
                     $arBinds['name'] = htmlspecialchars($GET['name']);
                 }
-                $helpst=rtrim($query,'AND ');
-                $query = $helpst;
-            }
-            $stmt = $db->prepare($query);
-            echo "$query <br>";
-            $stmt->execute($arBinds);
-            $aboba = $stmt->fetchAll();
-            //echo "$stmt <br>";
 
-            print_r($aboba);
-            echo $aboba['0''1'];
-
-        } else
-        {
-            $cost ='';
-            $title ='';
-            $name ='';
-            $desc ='';
         }
 
+        $helpstr=rtrim($query,'AND ');
+        $query = $helpstr;
         $query.= ' ORDER BY workers.id';
-        echo "$query";
-        return $query;
+        $stmt = $db->prepare($query);
+        $stmt->execute($arBinds);
+
+        return $stmt;
 
     }
 
-    function showtable($queryres)
+    function showtable($queryres) // выводим строки таблицы, на вход получаем результат запроса
     {
-    while ($row = mysqli_fetch_assoc($queryres)) { // собираем строку
+    while ($row = $queryres->fetch(PDO::FETCH_ASSOC)) { // собираем строку
         $imgpath = $row['img_path'];
         $pasteimg = '<img src="' . $imgpath . '" alt class ="img100x100"> </img>';
-        $pasterow = '<tr class = "rowh110"><th>' . $pasteimg . '</th><th>' . $row['name'] . '</th><th>' . $row['title'] . '</th><th>';
+        $pasterow = '<tr class = "rowh110"><th>' . $pasteimg . '</th><th>' . $row['name'];
+        $pasterow. '</th><th>' . $row['title'] . '</th><th>';
         $pasterow .= $row['description'] . '</th><th>' . $row['cost'] . '</th></tr>';
 
         echo $pasterow;
     }
     }
 
-    $cost='';
-    $title = '';
-    $desc = '';
-    $name = '';
+
 ?>
