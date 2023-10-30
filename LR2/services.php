@@ -1,6 +1,5 @@
 <?php
 require_once 'logic.php';
-$a = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -21,15 +20,15 @@ $a = '';
 </head>
 <body>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/header.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/header.php'; //шапка сайта
 ?>
 
-<div class="container text-center">
+<div class="container text-center"> <!-- параметры фильтра-->
     <form action = "services.php" method="get">
         <label>Фильтрация результатов поиска</label>
         <div class ="brdrbtm">
             <label>По стоимости:</label>
-            <input type="number" name="cost" placeholder="Стоимость" value="<?php echo "$cost"?>" class="form-control">
+            <input type="number" name="cost" placeholder="Стоимость" value="<?php echo $cost?>" class="form-control">
         </div>
         <div class ="brdrbtm">
             <label>По сотруднику</label>
@@ -46,21 +45,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/header.php';
             <label>По названию</label>
             <input type="text" name="name" placeholder="Название услуги" value="<?php echo "$name"?>" class="form-control">
         </div>
-        <input type="submit" value="Применить фильтр" class="btn btn-primary">
+        <input type="submit" name="Filter" value="Применить фильтр" class="btn btn-primary">
         <input type="submit" name="clearFilter" value="Очистить фильтр" class="btn btn-danger">
     </form>
 </div>
 
-<?php
-echo count($_GET);
+<?php $queryres = filtration($_GET,$mysql1); ?>
 
-$query = filtration($_GET,$mysql1,$cost,$title,$desc,$name);
-
-$queryres = mysqli_query($mysql,$query);
-
-?>
 <div class = "container text-center align-content-center">
-    <?php if (mysqli_num_rows($queryres)>0):?>
+
         <table class = "table border-1 align-content-center">
             <thead>
             <tr>
@@ -72,12 +65,10 @@ $queryres = mysqli_query($mysql,$query);
             </tr>
             </thead>
             <tbody>
-        <?php
-           showtable($queryres);
-        ?>
+        <?php showtable($queryres);?>
             </tbody>
         </table>
-    <?php endif;?>
+
 </div>
 </body>
 </html>
