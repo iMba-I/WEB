@@ -103,9 +103,12 @@ if (key_exists('clearFilter', $_GET))
     while ($row = $queryres->fetch(PDO::FETCH_ASSOC)) { // собираем строку
         $imgpath = $row['img_path'];
         $pasteimg = '<img src="' . $imgpath . '" alt class ="img100x100"> </img>';
-        $pasterow = '<tr class = "rowh110"><th>' . $pasteimg . '</th><th>' . $row['name'];
-        $pasterow. '</th><th>' . $row['title'] . '</th><th>';
-        $pasterow .= $row['description'] . '</th><th>' . $row['cost'] . '</th></tr>';
+        $pasterow  = '<tr class = "rowh110">';
+        $pasterow .= '<th>'  .  $pasteimg           . '</th>';
+        $pasterow .= '<th>'  .  $row['name']        . '</th>';
+        $pasterow .= '<th>'  .  $row['title']       . '</th>';
+        $pasterow .= '<th>'  .  $row['description'] . '</th>';
+        $pasterow .= '<th>'  .  $row['cost']        . '</th></tr>';
 
         echo $pasterow;
     }
