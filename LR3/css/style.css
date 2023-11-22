@@ -1,0 +1,64 @@
+.page-h1 {
+    padding: 10px 0px;
+    background-color: #fcfcfc;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 10px;
+}
+.refff {
+   text-decoration: none;
+    font-size: 13px;
+    color: gray;
+}
+.refff2 {
+    text-decoration: none;
+    color: black;
+}
+.lftbrdr
+{
+    border-left:2px solid gray;
+    padding-left:10px;
+    margin-bottom: 10px
+}
+.greeen
+{
+    color: lightgreen;
+}
+.brdrbtm
+{
+    border-bottom: 3px solid cyan;
+    margin-top:10px;
+    margin-bottom: 10px;
+}
+.txtred
+{
+    color: red;
+}
+.refffnodec
+{
+    text-decoration: none;
+}
+
+.pic
+{
+    max-width: 60px;
+}
+
+.bgorng
+{
+    background: orange;
+    color:white;
+}
+
+.img100x100
+{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.rowh110
+{
+    height: 110px;
+    align-content: center;
+}
+
