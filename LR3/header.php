@@ -37,6 +37,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">О проекте</a>
                                 </li>
+                                <li class ="nav-item">
+                                    <a class = "nav-link text-danger" href ="services.php">СЕКРЕТНАЯ СТРАНИЦА</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -58,7 +61,7 @@
                     <li class="breadcrumb-item"><a class = "refff" href="#" itemprop="url">Главная</a></li>
                     <li class="breadcrumb-item"><a class = "refff" href="#">Волгоградская область</a></li>
                     <li class="breadcrumb-item"><a class = "refff" href="#">Волгоград</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><a class = "refff" href="#">УК «Жэк» </a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><a class = "refff" href="main.php">УК «Жэк» </a></li>
                 </ol>
             </nav>
         </div>

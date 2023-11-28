@@ -1,35 +1,40 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/db.php';
 
+
+    if ($_SESSION['mail']=='')
+    {
+        header(header: 'Location: login.php');
+    }
 // сохраняем результаты фильтра
-$cost='';
-if (isset($_GET['cost']))
-{
-    $cost = $_GET['cost'];
-}
-$title = '';
-if (isset($_GET['title']))
-{
-    $title = $_GET['title'];
-}
-$desc = '';
-if (isset($_GET['description']))
-{
-    $desc = $_GET['description'];
-}
-$name = '';
-if (isset($_GET['name']))
-{
-    $name = $_GET['name'];
-}
-// очищаем поля, если нажали очистить фильтр
-if (key_exists('clearFilter', $_GET))
-{
-    $desc = '';
-    $name = '';
-    $title = '';
     $cost='';
-}
+    if (isset($_GET['cost']))
+    {
+        $cost = $_GET['cost'];
+    }
+    $title = '';
+    if (isset($_GET['title']))
+    {
+        $title = $_GET['title'];
+    }
+    $desc = '';
+    if (isset($_GET['description']))
+    {
+        $desc = $_GET['description'];
+    }
+    $name = '';
+    if (isset($_GET['name']))
+    {
+        $name = $_GET['name'];
+    }
+    // очищаем поля, если нажали очистить фильтр
+    if (key_exists('clearFilter', $_GET))
+    {
+        $desc = '';
+        $name = '';
+        $title = '';
+        $cost='';
+    }
     function showlistel ($db,$numt){ // Добавляем элементы выпадающего списка
         $que = "SELECT * FROM workers
                 ORDER BY id";

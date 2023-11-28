@@ -45,7 +45,7 @@ if (isset($_POST['login'])) {
         $res=$user->fetch(PDO::FETCH_ASSOC);
         if (!$res)
         {
-            $arrerr['nouser'] = "Пользователей с такими данными нет";
+            $arrerr['nouser'] = "Пользователей с такими данными нет.";
             $errs++;
         } else
         {
