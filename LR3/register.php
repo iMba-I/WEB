@@ -108,7 +108,9 @@ require_once "logic.php";
                             <p class = "text-primary"> Дата рождения</p>
                             <input type="date" id="birthdate" name="birthdate" value="<?=$date?>" min="1950-01-01" max="2100-12-31" />
                         </div>
-
+                        <?php if($arrayerrors['errbirthdate']){
+                            echo ' <div class = "err mb-2 text-danger">'.$arrayerrors['errbirthdate'] . '</div>';}
+                        ?>
 
                         <div class="justify-content-start">
                             <p class="text-primary">Группа крови</p>
@@ -125,12 +127,19 @@ require_once "logic.php";
                             <p class="text-primary">Интересы</p>
                             <textarea class="form-control mb-3  " name="interests" id="interests" rows="7" placeholder="Напишите пару слов"><?php echo $interests;?></textarea>
                         </div>
+                        <?php if($arrayerrors['errinterests']){
+                            echo ' <div class = "err mb-2 text-danger">'.$arrayerrors['errinterests'] . '</div>';}
+                        ?>
+
                         <div class="justify-content-start">
                             <p class="text-primary">Адрес</p>
                             <input type="text " name="adres" value="<?= $adres ?>" placeholder="Введите адрес"
                                    class="form-control mb-3  ">
 
                         </div>
+                        <?php if($arrayerrors['erradres']){
+                            echo ' <div class = "err mb-2 text-danger">'.$arrayerrors['erradres'] . '</div>';}
+                        ?>
 
 
                     </div>

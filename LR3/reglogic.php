@@ -26,7 +26,7 @@ if (isset($_POST['RHfactor']))
 $vk_link='';
 if (isset($_POST['vk_link']))
 {
-    $vk = htmlspecialchars($_POST['vk_link']);
+    $vk_link = htmlspecialchars($_POST['vk_link']);
 }
 
 $GroupBlood = '';
@@ -130,8 +130,8 @@ if(isset($_POST['register'])){
         $errors++;
     }
 
-    if(filter_var($vk_link, FILTER_VALIDATE_URL)){
-        $arrayerrors['errvk'] = 'Заполните корректно поле ВКонтакте';
+    if(!filter_var($vk_link, FILTER_VALIDATE_URL)){
+        $arrayerrors['errvk_link'] = 'Заполните корректно поле ВКонтакте';
         $errors++;
     }
 
