@@ -63,11 +63,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["import"])) {
 
             }
 //проверяем, файл существует
-            if (file_exists($filePath)) {
+            if (file_exists($_FILES['file']['tmp_name'])) {
 //получаем файл
-                $handle = fopen($filePath, "r");
-                $xmlContent = fread($handle, filesize($filePath));
-                //$xmlContent = file_get_contents($filePath);
+                $handle = fopen($_FILES['file']['tmp_name'], "r");
+                $xmlContent = fread($handle, filesize($_FILES['file']['tmp_name']));
+                move_uploaded_file($_FILES['file']['tmp_name'], $filePath);
 
 //Проверка, является ли загруженное содержимое действительным хмл
                 $isValidXml = simplexml_load_string($xmlContent) !== false;
